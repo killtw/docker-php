@@ -1,0 +1,7 @@
+FROM killtw/php
+
+COPY --from=abiosoft/caddy /usr/bin/caddy /usr/bin/caddy
+
+EXPOSE 2015
+
+CMD ["/usr/bin/caddy", "--conf", "/etc/Caddyfile", "--log", "stdout"]
