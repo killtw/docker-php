@@ -20,7 +20,8 @@ RUN set -xe && \
     apk add -u --no-cache \
         libzip-dev \
         libjpeg-turbo-dev \
-        libpng-dev && \
+        libpng-dev \
+        libstdc++ && \
     \
     docker-php-ext-configure zip --with-libzip && \
     \
@@ -36,8 +37,14 @@ RUN set -xe && \
         sockets \
         zip && \
     \
-    pecl install redis && \
-    docker-php-ext-enable redis && \
+    pecl install \
+        redis \
+        grpc \
+        protobuf && \
+    docker-php-ext-enable \
+        redis \
+        grpc \
+        protobuf && \
     \
     composer global require hirak/prestissimo -n && \
     \

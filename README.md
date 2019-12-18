@@ -9,6 +9,8 @@ Alpine based PHP Docker image with extensions and composer.
 * Redis
 * GD
 * Sockets
+* gRPC
+* Protocol Buffers (a.k.a., protobuf)
 
 ## Composer packages
 * [hirak/prestissimo](https://github.com/hirak/prestissimo)
