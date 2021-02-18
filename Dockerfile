@@ -1,4 +1,4 @@
-FROM php:7.3-fpm-alpine
+FROM php:7.4.15-fpm-alpine
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
@@ -15,17 +15,19 @@ RUN set -xe && \
     apk add -u --no-cache --virtual build-dependencies \
         $PHPIZE_DEPS \
         libpng \
-        libjpeg-turbo && \
+        libjpeg-turbo \
+        linux-headers && \
     \
     apk add -u --no-cache \
         libzip-dev \
         libjpeg-turbo-dev \
         libpng-dev \
-        libstdc++ && \
+        libstdc++ \
+        tzdata && \
     \
-    docker-php-ext-configure zip --with-libzip && \
+    docker-php-ext-configure zip && \
     \
-    docker-php-ext-configure gd --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
+    docker-php-ext-configure gd --with-jpeg && \
     \
     docker-php-ext-install -j$(nproc) \
         bcmath \
@@ -38,15 +40,9 @@ RUN set -xe && \
         zip && \
     \
     pecl install \
-        redis \
-        grpc \
-        protobuf && \
+        redis && \
     docker-php-ext-enable \
-        redis \
-        grpc \
-        protobuf && \
-    \
-    composer global require hirak/prestissimo -n && \
+        redis && \
     \
     apk del -f --purge build-dependencies && \
     rm -rf /tmp/* /src /var/cache/apk/* /usr/src/* && \

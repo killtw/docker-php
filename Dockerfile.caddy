@@ -1,4 +1,4 @@
-FROM killtw/php:1.1.0
+FROM killtw/php:7.4.15
 
 COPY --from=abiosoft/caddy /usr/bin/caddy /usr/bin/caddy
 
